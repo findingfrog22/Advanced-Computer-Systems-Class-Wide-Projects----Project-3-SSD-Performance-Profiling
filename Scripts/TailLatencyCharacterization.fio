@@ -1,20 +1,36 @@
 [global]
 ioengine=libaio
 direct=1
-size=12G
+thread=1
 time_based=1
-runtime=120
+runtime=20
 group_reporting=1
-numjobs=1
 randrepeat=0
 norandommap=1
-thread=1
-ramp_time=20
 bs=4k
 rw=randread
 
-[mid_qd16]
+###########################################################################################################
+# Queue-Depth Sweep (Identify Mid-QD and Knee-QD)
+###########################################################################################################
+
+[qd1]
+iodepth=1
+
+[qd2]
+iodepth=2
+
+[qd4]
+iodepth=4
+
+[qd8]#probably the mid-QD depth or near it
+iodepth=8
+
+[qd16]
 iodepth=16
 
-[near_knee_qd64]
+[qd32]#probably the knee depth or near it
+iodepth=32
+
+[qd64]#probably diminishing returns here
 iodepth=64

@@ -17,7 +17,7 @@ ramp_time=20
 rw=write
 bs=128k
 iodepth=32
-runtime=900
+runtime=300
 size=12G
 
 

@@ -42,28 +42,67 @@ cpupower frequency-info #this prints out the current frequency info for all core
 #cpupower -c 0 monitor
 
 #Config, here is your partition directory
-DIR='/dev/nvme1n1p4'
+#DIR='/dev/nvme1n1p4'
+
+#mount your partition
+#sudo mount DIR /mnt/testpart
 
 #First, go to your root (if your partition is)
-sudo fallocate -l 12G "$DIR/fio.dat" #allocates 12GiB file for fio testing
-filedirectory="$DIR/fio.dat" #you will use this in your .fio jobfiles
+#sudo mkdir -p "/mnt/testpart/test"
+#sudo fallocate -l 12G "/mnt/testpart/test/fio.dat" #allocates 12GiB file for fio testing
+#filedirectory="/mnt/testpart/test/fio.dat" #you will use this in your .fio jobfiles
+
+DIR='/home/timrota/AdvancedComputerSystemsProjects/ClasswideProjects/Project3SSD'
+sudo mkdir -p "$DIR/TestData"
+
+#only allocate the file if it does NOT already exist
+if [ ! -f "$DIR/testfile/fio.dat"]; then
+    echo "Allocating FIO test file at $DIR/TestData/"
+    sudo fallocate -l 12G "$DIR/TestData/fio.dat"
+else
+    echo "FIO test file already exists at $DIR/TestData/fio.dat - skipping allocation"
+fi
+filedirectory="$DIR/TestData/fio.dat"
+
+touch ZeroQueueBaselines.json
+touch BlockSizeSweep.json
+touch ReadWriteMixSweep.json
+touch QueueDepthParallelismSweep.json
+touch TailLatencyCharacterization.json
+touch WorkingSetLBARangeDeviceStateNote.json
+touch MisleadingSetup.json
+
+> ZeroQueueBaselines.json
+> BlockSizeSweep.json
+> ReadWriteMixSweep.json
+> QueueDepthParallelismSweep.json
+> TailLatencyCharacterization.json
+> WorkingSetLBARangeDeviceStateNote.json
+> MisleadingSetup.json
 
 #Now benchmark time
 
 #1.) Zero-Queue Baselines: QD=1 latency for 4KiB random read/write and 128KiB sequential read/write; include p95/p99
-fio ZeroQueueBaselines.fio --filename="$filedirectory" --output-format=json
+echo "1.) Zero-Queue Baselines: Running..."
+fio ZeroQueueBaselines.fio --filename="$filedirectory" --output-format=json >> ZeroQueueBaselines.json
 #2.) Block-Size Sweep: Throughput and latency from the same runs for random and sequential patterns
-fio BlockSizeSweep.fio --filename="$filedirectory" --output-format=json
+echo "2.) Block-Size Sweep: Running..."
+fio BlockSizeSweep.fio --filename="$filedirectory" --output-format=json >> BlockSizeSweep.json
 #3.) Read/write mix sweep under fixed block size and pattern
-fio ReadWriteMixSweep.fio --filename="$filedirectory" --output-format=json
+echo "3.) Read/Write Mix Sweep: Running..."
+fio ReadWriteMixSweep.fio --filename="$filedirectory" --output-format=json >> ReadWriteMixSweep.json
 #4.) Queue-Depth/Parallelism Sweep: Single throughput-vs-latency curve, knee identification, and Little's Law discussion
-fio QueueDepthParallelismSweep.fio --filename="$filedirectory" --output-format=json
+echo "4.) Queue-Depth/Parallelism Sweep: Running..."
+fio QueueDepthParallelismSweep.fio --filename="$filedirectory" --output-format=json >> QueueDepthParallelismSweep.json
 #5.) Tail-latency characterization at mid-QD and near-knee QD
-fio TailLatencyCharacterization.fio --filename="$filedirectory" --output-format=json
+echo "5.) Tail-latency Characterization: Running..."
+fio TailLatencyCharacterization.fio --filename="$filedirectory" --output-format=json >> TailLatencyCharacterization.json
 #6.) Working-Set/LBA-Range and Device-State note: Discuss burst vs. steady-state if observable
-fio WorkingSetLBARangeDeviceStateNote.fio --filename="$filedirectory" --output-format=json
+echo "6.) Working-Set/LBA-Range and Device-State: Running..."
+fio WorkingSetLBARangeDeviceStateNote.fio --filename="$filedirectory" --output-format=json >> WorkingSetLBARangeDeviceStateNote.json
 #7.) Demonstrate or explain one misleading setup, such as buffered I/O /page-cache effects, wrong effective queue depth, insufficient preconditioning, or thermal throttling
-fio MisleadingSetup.fio --filename="$filedirectory" --output-format=json
+echo "7.) Misleading Results: Running... (Optional)"
+fio MisleadingSetup.fio --filename="$filedirectory" --output-format=json >> MisleadingSetup.json
 
 #NOTE: how to compile and run properly: gcc project2cache.cpp -lstdc++ -o project2cache.exe
 #that -lstdc++ is what causes the linker for the libraries to work
