@@ -24,6 +24,7 @@ Project-specific:
 - Partition size: 32GiB (32,768MiB)
 - Filesystem: EXFAT
 - SSD Model: Intel H10 32GB+512GB (Optane 32GB (PCIe 3.0 x2) + QLC 512GB (PCIe 3.0 x2), M.2 NVMe)
+- --> In RAID (Intel RST) mode, but Debian only uses the 512GB QLC part, and doesn't use the optane caching at all. Hence the tests are only performed on the QLC portion of the drive.
 - Methodology: Will be using filesystem instead of RAW due to it being non-destructive
 
 Pre-experiment Hypothesis:
