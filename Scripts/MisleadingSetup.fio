@@ -1,0 +1,16 @@
+[global]
+ioengine=libaio
+size=1G
+time_based=1
+runtime=20
+group_reporting=1
+numjobs=1
+randrepeat=0
+norandommap=1
+thread=1
+bs=4k
+rw=randread
+iodepth=32
+
+[buffered]
+# direct=1 intentionally omitted

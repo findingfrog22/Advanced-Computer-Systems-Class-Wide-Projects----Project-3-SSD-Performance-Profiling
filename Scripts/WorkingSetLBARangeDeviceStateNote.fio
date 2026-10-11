@@ -1,0 +1,42 @@
+[global]
+ioengine=libaio
+direct=1
+group_reporting=1
+thread=1
+randrepeat=0
+norandommap=1
+time_based=1
+ramp_time=20
+
+############################################################
+# 1. DEVICE STATE: PRECONDITIONING (Steady-State)
+############################################################
+
+# Long sequential write to exhaust SLC cache and trigger GC
+[precondition]
+rw=write
+bs=128k
+iodepth=32
+runtime=900
+size=12G
+
+
+############################################################
+# 2. WORKING-SET / LBA RANGE EXPERIMENTS
+############################################################
+
+# Small working set (hot region)
+[small_ws]
+rw=randread
+bs=4k
+iodepth=32
+runtime=60
+size=1G
+
+# Large working set (cold + hot mixed)
+[large_ws]
+rw=randread
+bs=4k
+iodepth=32
+runtime=60
+size=10G

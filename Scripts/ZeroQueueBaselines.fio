@@ -1,0 +1,36 @@
+[global]
+ioengine=libaio
+direct=1
+size=12G
+time_based=1
+runtime=45
+group_reporting=1
+numjobs=1
+randrepeat=0
+norandommap=1
+thread=1
+ramp_time=10
+
+# 4K random read
+[4k_rand_read_qd1]
+rw=randread
+bs=4k
+iodepth=1
+
+# 4K random write
+[4k_rand_write_qd1]
+rw=randwrite
+bs=4k
+iodepth=1
+
+# 128K sequential read
+[128k_seq_read_qd1]
+rw=read
+bs=128k
+iodepth=1
+
+# 128K sequential write
+[128k_seq_write_qd1]
+rw=write
+bs=128k
+iodepth=1
