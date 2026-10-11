@@ -34,5 +34,10 @@ Pre-experiment Hypothesis:
 How to use:
 - TBD
 
+All-in-all, one run of this script should take:
+- ~30 minutes
+- 160GiB Reads
+- ~>1TiB Writes
+
 AI Use/Notes:
 - TBD
