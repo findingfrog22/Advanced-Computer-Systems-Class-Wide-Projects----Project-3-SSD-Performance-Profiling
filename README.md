@@ -24,6 +24,7 @@ Project-specific:
 - Partition size: 32GiB (32,768MiB)
 - Filesystem: EXFAT
 - SSD Model: Intel H10 32GB+512GB (Optane 32GB (PCIe 3.0 x2) + QLC 512GB (PCIe 3.0 x2), M.2 NVMe)
+- Methodology: Will be using filesystem instead of RAW due to it being non-destructive
 
 Pre-experiment Hypothesis:
 - Random reads will be significantly worse than sequential reads. Larger block sizes increase fragmentation, increase garbage collection, and slow down performance of the SSD. Small block sizes benefit from caching when sequential but not random.
