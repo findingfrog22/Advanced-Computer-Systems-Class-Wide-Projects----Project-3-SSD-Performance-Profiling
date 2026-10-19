@@ -9,15 +9,15 @@
 #Environmental setup, for reproducibility:
 
 #What I will vs will not do:
-# - I had to make compromises to ensure that Intel MLC could work, while trying to be as consistent as I can
+
 #What I will do:
 #1.) Disable Turbo Boost --> Increases throughput+latency consistency
 #2.) Lock the Frequency --> Increases throughput+latency consistency
 #3.) Disable C states (besides C0, which will run 100% of the time) --> Reduces jitter and performance dips
 
-#What I will not do: (mainly due to Intel MLC Quirks)
-#1.) Core Isolation (especially to 1 core) --> Intel MLC likes to use all cores for latency and bandwidth
-#2.) Disable SMT/Hyper Threading --> Intel MLC handles thread mapping with SMT/Hyperthreading, disabling it throws of HWID indexing
+#What I will not do: (not really needed, as it isn't going to effect the results for this project as much as the previous ones)
+#1.) Core Isolation (especially to 1 core)
+#2.) Disable SMT/Hyper Threading
 
 #set intel pstate to passive mode, allows for direct frequency change instead of preset governors
 echo passive | tee /sys/devices/system/cpu/intel_pstate/status
@@ -103,10 +103,6 @@ fio WorkingSetLBARangeDeviceStateNote.fio --filename="$filedirectory" --output-f
 #7.) Demonstrate or explain one misleading setup, such as buffered I/O /page-cache effects, wrong effective queue depth, insufficient preconditioning, or thermal throttling
 echo "7.) Misleading Results: Running... (Optional)"
 fio MisleadingSetup.fio --filename="$filedirectory" --output-format=json >> MisleadingSetup.json
-
-#NOTE: how to compile and run properly: gcc project2cache.cpp -lstdc++ -o project2cache.exe
-#that -lstdc++ is what causes the linker for the libraries to work
-#NOTE: you must also run this with sudo or else the perf benchmark counters won't work
 
 
 #undoing the testing environment to return the system back to normal config
