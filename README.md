@@ -11,7 +11,6 @@ Measurement Discipline (System Configuration):
 - Governor: intel cpu_freq
 - VSCode IDE
 - FIO (version 3.39)
-- TBD
 
 Environment Specific Setup:
 - All CPU cores were locked to 1.40GHz constant
@@ -32,12 +31,24 @@ Pre-experiment Hypothesis:
 - Random reads will be significantly worse than sequential reads. Larger block sizes increase fragmentation, increase garbage collection, and slow down performance of the SSD. Small block sizes benefit from caching when sequential but not random.
 
 How to use:
-- TBD
+- Download these files:
+- --> BenchmarkScript.sh
+- --> BlockSizeSweep.fio
+- --> MisleadingSetup.fio
+- --> QueueDepthParallelismSweep.fio
+- --> ReadWriteMixSweep.fio
+- --> TailLatencyCharacterization.fio
+- --> WorkingSetLBARangeDeviceStateNote.fio
+- --> ZeroQueueBaselines.fio
+- Note that these downloaded files must be in the same directory.
+- Then, run the benchmark script with sudo priviledges with this command:
+- --> sudo ./BenchmarkScript.sh
 
 All-in-all, one run of this script should take:
-- ~30 minutes
-- 160GiB Reads
-- ~>1TiB Writes
+- ~10-15 minutes
+- ~100GiB Reads
+- ~300GiB Writes
 
 AI Use/Notes:
-- TBD
+- Copilot was used to generate the FIO scripts. I double checked them and modified them to my liking
+- --> The scripts were written by me, with assistance from Copilot and Gemini for documentation
