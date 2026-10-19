@@ -4,7 +4,6 @@ direct=1
 size=12G
 time_based=1
 runtime=45
-group_reporting=1
 numjobs=1
 randrepeat=0
 norandommap=1

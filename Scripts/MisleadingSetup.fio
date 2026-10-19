@@ -3,7 +3,6 @@ ioengine=libaio
 size=1G
 time_based=1
 runtime=20
-group_reporting=1
 numjobs=1
 randrepeat=0
 norandommap=1

@@ -1,7 +1,6 @@
 [global]
 ioengine=libaio
 direct=1
-group_reporting=1
 thread=1
 randrepeat=0
 norandommap=1
