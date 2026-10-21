@@ -8,6 +8,26 @@ time_based=1
 ramp_time=20
 
 ############################################################
+# 0. FRESH STATE: no preconditioning
+############################################################
+
+# Small working set (hot region)
+[small_ws_fresh]
+rw=randread
+bs=4k
+iodepth=32
+runtime=60
+size=1G
+
+# Large working set (cold + hot mixed)
+[large_ws_fresh]
+rw=randread
+bs=4k
+iodepth=32
+runtime=60
+size=10G
+
+############################################################
 # 1. DEVICE STATE: PRECONDITIONING (Steady-State)
 ############################################################
 
@@ -25,7 +45,7 @@ size=12G
 ############################################################
 
 # Small working set (hot region)
-[small_ws]
+[small_ws_steady]
 rw=randread
 bs=4k
 iodepth=32
@@ -33,7 +53,7 @@ runtime=60
 size=1G
 
 # Large working set (cold + hot mixed)
-[large_ws]
+[large_ws_steady]
 rw=randread
 bs=4k
 iodepth=32
